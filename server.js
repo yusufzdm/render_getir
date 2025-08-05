@@ -105,6 +105,24 @@ app.post('/webhook/trendyol/cancelled', async (req, res) => {
   await forwardWebhook('trendyol', 'cancelled', req, res);
 });
 
+// ======================
+// BANABIKURYE WEBHOOK ENDPOINTS
+// ======================
+
+// Banabikurye - Teslimat durumu değişti
+app.post('/webhook/banabikurye/delivery-changed', async (req, res) => {
+  await forwardWebhook('banabikurye', 'delivery-changed', req, res);
+});
+
+// Banabikurye - Sipariş durumu değişti
+app.post('/webhook/banabikurye/order-changed', async (req, res) => {
+  await forwardWebhook('banabikurye', 'order-changed', req, res);
+});
+
+// ======================
+// TRENDYOL WEBHOOK ENDPOINTS
+// ======================
+
 // Trendyol - Ürün tedarik edilemedi
 app.post('/webhook/trendyol/unsupplied', async (req, res) => {
   await forwardWebhook('trendyol', 'unsupplied', req, res);
