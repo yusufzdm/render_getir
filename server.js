@@ -7,7 +7,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.json({ 
     status: 'Food Order Platform Webhook Proxy v2.0',
-    supportedPlatforms: ['getir', 'trendyol'],
+    supportedPlatforms: ['getir', 'trendyol', 'yemeksepeti'],
     endpoints: [
       '/webhook/getir/order-created',
       '/webhook/getir/order-cancelled', 
@@ -15,7 +15,10 @@ app.get('/', (req, res) => {
       '/webhook/trendyol/shipped',
       '/webhook/trendyol/delivered',
       '/webhook/trendyol/cancelled',
-      '/webhook/trendyol/unsupplied'
+      '/webhook/trendyol/unsupplied',
+      '/webhook/yemeksepeti/order-created',
+      '/webhook/yemeksepeti/order-cancelled',
+      '/webhook/yemeksepeti/order-delivered'
     ]
   });
 });
@@ -117,6 +120,20 @@ app.post('/webhook/banabikurye/delivery-changed', async (req, res) => {
 // Banabikurye - Sipariş durumu değişti
 app.post('/webhook/banabikurye/order-changed', async (req, res) => {
   await forwardWebhook('banabikurye', 'order-changed', req, res);
+});
+
+// ======================
+// YEMEKSEPETI WEBHOOK ENDPOINTS
+// ======================
+
+// YemekSepeti - Yeni sipariş (Order Dispatch)
+app.post('/webhook/yemeksepeti/dispatch-order', async (req, res) => {
+  await forwardWebhook('yemeksepeti', 'dispatch-order', req, res);
+});
+
+// YemekSepeti - Sipariş durumu güncelleme (Order Status Update)
+app.post('/webhook/yemeksepeti/order-status-update', async (req, res) => {
+  await forwardWebhook('yemeksepeti', 'order-status-update', req, res);
 });
 
 // ======================
